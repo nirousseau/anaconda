@@ -433,7 +433,7 @@ class S390(Platform):
         )
 
 
-class ARM(Platform):
+class RISC(Platform):
 
     @property
     def stage1_suggestion(self):
@@ -458,6 +458,14 @@ class ARM(Platform):
             PLATFORM_DEVICE_TYPES: ["disk"]
         }
         return dict(super().stage1_constraints, **constraints)
+
+
+class ARM(RISC):
+    pass
+
+
+class RISCV(RISC):
+    pass
 
 
 def get_platform():
@@ -492,6 +500,8 @@ def get_platform():
         return X86()
     elif arch.is_arm():
         return ARM()
+    elif arch.is_riscv64():
+        return RISCV()
     else:
         raise SystemError("Could not determine system architecture.")
 
